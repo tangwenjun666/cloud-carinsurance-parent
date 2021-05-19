@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ci.mapper.RolesMapper">
+	<!-- 添加角色信息-->
+	<insert id="insertRole" parameterType="Roles">
+		insert into roles values(default,#{rname},#{rdescribe},default) 
+	</insert>
+	<!-- 修改角色状态信息（停用或启用） -->
+	<update id="updateRoleStatus">
+		update roles set rstatus=#{rstatus} where rid=#{rid}
+	</update>
+	<!-- 修改指定角色信息 -->
+	<update id="updateRole" parameterType="Roles">
+		update roles set rname=#{rname},rdescribe=#{rdescribe} where rid=#{rid}
+	</update>
+	<!-- 删除指定角色信息 -->
+	<delete id="deleteRole" parameterType="int">
+		delete from roles where rid=#{rid}
+	</delete>
+	<!-- 根据条件查询所有角色的总数量 -->
+	<select id="selectRolesCount" parameterType="string" resultType="int">
+		<bind name="rname" value="'%'+rname+'%'"/>
+		select count(1) from roles where rname like #{rname}
+	</select>
+	<!-- 根据序号查询用户角色信息 -->
+	<select id="selectRole" parameterType="int" resultType="Roles">
+		select * from roles where rid=#{rid}
+	</select>
+	<!-- 查询所有角色信息 -->
+	<select id="selectRoles" resultType="Roles">
+		select * from roles
+	</select>
+	<!-- 根据条件查询所有角色信息 -->
+	<select id="selectRolesPage" resultType="Roles">
+		<bind name="rname" value="'%'+rname+'%'"/>
+		select * from roles where rname like #{rname} limit #{pageNo},#{pageSize}
+	</select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ci.mapper.MenusMapper">
+	<!-- 添加菜单权限 -->
+	<insert id="insertMenu" parameterType="Menus">
+		insert into menus values(default,#{mname},#{page_url},#{pid},default)
+	</insert>
+	<!-- 修改指定菜单权限状态信息 -->
+	<update id="updateMenuStatus">
+		update menus set mstatus=#{mstatus} where mid=#{mid}
+	</update>
+	<!-- 修改指定菜单权限 -->
+	<update id="updateMenu" parameterType="Menus">
+		update menus set mname=#{mname},page_url=#{page_url},pid=#{pid} where mid=#{mid}
+	</update>
+	<!-- 删除指定菜单权限 -->
+	<delete id="deleteMenu" parameterType="int">
+		delete from menus where mid=#{mid}
+	</delete>
+	<!-- 根据条件查询所有菜单权限的总数量 -->
+	<select id="selectMenusCount" parameterType="string" resultType="int">
+		<bind name="mname" value="'%'+mname+'%'"/>
+		select count(1) from menus where mname like #{mname}
+	</select>
+	<!-- 查询指定菜单信息 -->
+	<select id="selectMenu" parameterType="int" resultType="Menus">
+		select * from menus where mid=#{mid}
+	</select>
+	<!-- 查询所有菜单信息 -->
+	<select id="selectMenusAll" resultType="Menus">
+		select * from menus
+	</select>
+	<!-- 根据条件查询所有角色信息 -->
+	<select id="selectMenusPage" resultType="Menus">
+		<bind name="mname" value="'%'+mname+'%'"/>
+		select * from menus where mname like #{mname} limit #{pageNo},#{pageSize}
+	</select>
+</mapper>

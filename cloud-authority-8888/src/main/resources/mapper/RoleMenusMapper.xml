@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ci.mapper.RoleMenusMapper">
+	<!-- 根据角色序号查询角色菜单信息 -->
+	<select id="selectRoleMenus" parameterType="int" resultType="RoleMenus">
+		select * from role_menu where rid=#{rid}
+	</select>
+	
+	<!-- 根据角色菜单序号查询指定角色菜单信息 -->
+	<select id="selectRoleMenusById" parameterType="int" resultType="int">
+		select count(1) from role_menu where rid=#{rid} and mid=#{mid}
+	</select>
+	
+	<!-- 删除角色菜单权限信息 -->
+	<delete id="deleteRoleMenus" parameterType="int">
+		delete from role_menu where rid=#{rid}
+	</delete>
+	
+	<!-- 添加角色菜单权限信息 -->
+	<insert id="insertRoleMenu">
+		insert into role_menu values(#{rid},#{mid},#{bid})
+	</insert>
+	
+	<!-- 修改角色菜单权限信息 -->
+	<update id="updateRoleMenu">
+		update role_menu set bid=#{bid} where rid=#{rid} and mid=#{mid}
+	</update>
+</mapper>

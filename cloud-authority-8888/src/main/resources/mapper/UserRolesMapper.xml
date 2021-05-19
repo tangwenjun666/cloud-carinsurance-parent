@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ci.mapper.UserRolesMapper">
+	<!-- 根据用户序号查询用户角色关系信息 -->
+	<select id="selectUserRoles" parameterType="int" resultType="UserRoles">
+		select * from user_role where uid=#{uid}
+	</select>
+	<!-- 删除用户角色信息 -->
+	<delete id="deleteUserRoles" parameterType="int">
+		delete from user_role where uid=#{uid}
+	</delete>
+	<!-- 添加用户角色信息 -->
+	<insert id="insertUserRole">
+		insert into user_role values(#{uid},#{rid})
+	</insert>
+</mapper>
